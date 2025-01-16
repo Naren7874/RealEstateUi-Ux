@@ -1,46 +1,71 @@
+import { useState } from "react";
+import "./searchbar.scss";
+import { Link } from "react-router-dom";
 
-import { useState } from 'react'
-import './searchbar.scss'
-import {useNavigate} from "react-router-dom"
-const Searchbar = () => {
-    const navigate = useNavigate();
-    function switchType(s){
-       const val =  document.querySelectorAll(".buy_rent");
-       if(s === "buy"){
-           val[0].style.backgroundColor = "black";
-           val[0].style.color = "white";
-           val[1].style.backgroundColor = "white";
-           val[1].style.color = "black";
+const types = ["buy", "rent"];
 
-       }
-       else{
-           val[1].style.backgroundColor = "black";
-           val[1].style.color = "white";
-           val[0].style.backgroundColor = "white";
-           val[0].style.color = "black";
-       }
-       
-    }
-    const handleclick = () =>{
-        navigate("/list");
-    }
+function SearchBar() {
+  const [query, setQuery] = useState({
+    type: "buy",
+    city: "",
+    minPrice: 0,
+    maxPrice: 0,
+  });
+
+  const switchType = (val) => {
+    setQuery((prev) => ({ ...prev, type: val }));
+  };
+
+  const handleChange = (e) => {
+    setQuery((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
-    <div className='searchbar'>
-        <div className="options">
-            <button onClick={() => switchType("buy")} className='buy_rent'>Buy</button>
-            <button onClick={() => switchType("rent")} className='buy_rent'>Rent</button>
-        </div>
-        <div className="search">
-            <input type="text" name="" id="" placeholder='City Location'/>
-            <input type="number" name="minPrice" max={0} min={100} id="" placeholder='Min Price'/>
-            <input type="number" name="maxPrice" id="" max={10000000} min={0} placeholder='Max Price'/>
-            <button onClick={handleclick}>
-                <img src="/search.png" alt="" />
-            </button>
-
-        </div>
+    <div className="searchBar">
+      <div className="type">
+        {types.map((type) => (
+          <button
+            key={type}
+            onClick={() => switchType(type)}
+            className={query.type === type ? "active" : ""}
+          >
+            {type}
+          </button>
+        ))}
+      </div>
+      <form>
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="minPrice"
+          min={0}
+          max={10000000}
+          placeholder="Min Price"
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="maxPrice"
+          min={0}
+          max={10000000}
+          placeholder="Max Price"
+          onChange={handleChange}
+        />
+        <Link
+          to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
+        >
+          <button>
+            <img src="/search.png" alt="" />
+          </button>
+        </Link>
+      </form>
     </div>
-  )
+  );
 }
 
-export default Searchbar
+export default SearchBar;

@@ -23,25 +23,22 @@ function App() {
          },
          {
           path : "/list",
-          element :<Listpage />
+          element :<Listpage/>
          },
          {
           path : "/:id",
-          element :<Singlepage />
+          element :<Singlepage/>
          },
          {
           path : "/profile",
           element :<Profile />
          }
       ]
-     
     },
   ]);
   return (
    
-      <RouterProvider router={router} />
-      
-    
+      <RouterProvider router={router}/>
   )
 }
 

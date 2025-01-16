@@ -1,27 +1,33 @@
-import { Marker, Popup } from 'react-leaflet'
-import './pin.scss'
-import {Link} from "react-router-dom"
+import { Marker, Popup } from 'react-leaflet';
+import { Link } from 'react-router-dom';
 
-const Pin = ({item}) => {
+const Pin = ({ item }) => {
   return (
-    <Marker position={[item.latitude , item.longitude]}>
-    <Popup>
-        <div className="popupcontainer">
-            
-            <img src={item.img} alt="" />
+    <Marker position={[item.latitude, item.longitude]}>
+      <Popup>
+        <div className="flex w-auto gap-4 items-start min-w-[150px]">
+          {/* Image */}
+          <img
+            src={item.img}
+            alt="Property"
+            className="w-16 h-12 object-cover rounded-lg"
+          />
 
-
-            <div className="textcontainer">
-                <Link to={`/${item.id}`}  className='link'>
-                {item.title} 
-                </Link>
-            <span className="bed">{item.bedroom} bedroom</span>
-            <b>${item.price}</b>
-            </div>
+          {/* Text Content */}
+          <div className="flex flex-col text-sm">
+            <Link
+              to={`/${item.id}`}
+              className="text-blue-500 font-medium hover:underline"
+            >
+              {item.title}
+            </Link>
+            <span className="text-gray-500">{item.bedroom} bedroom</span>
+            <b className="text-gray-800">${item.price}</b>
+          </div>
         </div>
-    </Popup>
-  </Marker>
-  )
-}
+      </Popup>
+    </Marker>
+  );
+};
 
-export default Pin
+export default Pin;

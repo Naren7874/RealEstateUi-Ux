@@ -1,58 +1,142 @@
-import { useState } from "react";
-import "./navbar.scss";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [open, setopen] = useState(false);
-  function handleclick() {
-    setopen(!open);
-  }
-  const user = true;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const user = false;
+
+  const handleMenuToggle = () => setMenuOpen(!menuOpen);
+  true
+  const handleProfileClick = () => {
+    navigate('/profile'); // Redirect to the profile page
+  };
+
   return (
-    <nav className="navbar">
-      <div className="left">
-        <a href="/" className="logo">
-          <img src="/logo.png" alt="" />
-          <span>RealEstate</span>
+    <nav className="navbar bg-white h-[100px] flex items-center justify-between shadow-sm pr-6">
+      {/* Left Section */}
+      <div className="left flex items-center gap-10 flex-3">
+        <a href="/" className="logo flex items-center gap-3 font-bold text-lg">
+          <img src="/logo.png" alt="Logo" className="w-6" />
+          <span className="hidden md:inline">RealEstate</span>
         </a>
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+          Home
+        </a>
+        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+          About
+        </a>
+        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+          Contact
+        </a>
+        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+          Agents
+        </a>
       </div>
-      <div className="right">
+
+      {/* Right Section */}
+      <div className="right flex items-center justify-end gap-6 flex-2">
         {user ? (
-          <div className="user">
+          <div
+            className="user flex items-center font-bold gap-4 cursor-pointer"
+            onClick={handleProfileClick} // Redirect on click
+          >
             <img
               src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt=""
+              alt="User Avatar"
+              className="w-10 h-10 rounded-full object-cover transition-transform hover:scale-105"
             />
-            <span>naren</span>
-            <Link to="/profile" className="profile">
-              <div className="notification">5</div>
-              <span>Profile</span>
-            </Link>
+            <span className="hidden sm:inline text-lg">naren</span>
           </div>
         ) : (
           <>
-            <a href="/">Sign in</a>
-            <a href="/" className="register">
+            <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+              Sign in
+            </a>
+            <a href="/" className="register bg-yellow-400 px-4 py-2 rounded-md text-black text-lg">
               Sign up
             </a>
           </>
         )}
 
-        <div className="menuicon">
-          <img src="/menu.png" alt="" onClick={handleclick} />
+        {/* Menu Icon */}
+        <div className="menuicon sm:hidden">
+          <img
+            src="/menu.png"
+            alt="Menu Icon"
+            className="w-8 cursor-pointer transition-transform hover:scale-105"
+            onClick={handleMenuToggle}
+          />
         </div>
-        <div className={open ? "menu active" : "menu"}>
-          <a href="/">Home</a>
-          <a href="/">About</a>
-          <a href="/">Contact</a>
-          <a href="/">Agents</a>
-          <a href="/">Sign in</a>
-          <a href="/">Sign up</a>
-        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`menu fixed top-0 right-0 bg-black text-white h-screen w-2/3 flex flex-col items-center justify-center gap-6 transform ${
+          menuOpen ? 'translate-x-0' : 'translate-x-full'
+        } transition-transform duration-500 ease-in-out sm:hidden`}
+      >
+        {/* Close Button */}
+        <button
+          className="absolute top-4 right-5 text-white text-2xl font-bold"
+          onClick={handleMenuToggle}
+        >
+          ✕
+        </button>
+        <a
+          href="/"
+          className="text-2xl hover:underline transition-transform hover:scale-105"
+          onClick={handleMenuToggle}
+        >
+          Home
+        </a>
+        <a
+          href="/"
+          className="text-2xl hover:underline transition-transform hover:scale-105"
+          onClick={handleMenuToggle}
+        >
+          About
+        </a>
+        <a
+          href="/"
+          className="text-2xl hover:underline transition-transform hover:scale-105"
+          onClick={handleMenuToggle}
+        >
+          Contact
+        </a>
+        <a
+          href="/"
+          className="text-2xl hover:underline transition-transform hover:scale-105"
+          onClick={handleMenuToggle}
+        >
+          Agents
+        </a>
+        {!user ? (
+          <>
+            <a
+              href="/"
+              className="text-2xl hover:underline transition-transform hover:scale-105"
+              onClick={handleMenuToggle}
+            >
+              Sign in
+            </a>
+            <a
+              href="/"
+              className="text-2xl hover:underline transition-transform hover:scale-105"
+              onClick={handleMenuToggle}
+            >
+              Sign up
+            </a>
+          </>
+        ) : 
+        <a
+          href="/"
+          className="text-2xl hover:underline transition-transform hover:scale-105"
+          onClick={handleMenuToggle}
+        >
+          Profile
+        </a>
+        }
       </div>
     </nav>
   );
