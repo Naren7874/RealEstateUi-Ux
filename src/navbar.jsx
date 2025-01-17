@@ -4,10 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const user = true;
-
+  const user = false;
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
-  true
   const handleProfileClick = () => {
     navigate('/profile'); // Redirect to the profile page
   };

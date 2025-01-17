@@ -1,7 +1,5 @@
-
 import "./navbar";
 import "./pages/homepage/homepage"
-import Navbar from "./navbar";
 import Homepage from "./pages/homepage/homepage";
 import {
   createBrowserRouter,
@@ -41,5 +39,4 @@ function App() {
       <RouterProvider router={router}/>
   )
 }
-
 export default App
