@@ -1,29 +1,32 @@
-import { useState } from "react";
-import "./searchbar.scss";
+import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import "./SearchBar.scss";
 
-const types = ["buy", "rent"];
+const TYPES = ["buy", "rent"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
     type: "buy",
     city: "",
-    minPrice: 0,
-    maxPrice: 0,
+    minPrice: "",
+    maxPrice: "",
   });
 
-  const switchType = (val) => {
+  const switchType = useCallback((val) => {
     setQuery((prev) => ({ ...prev, type: val }));
-  };
+  }, []);
 
-  const handleChange = (e) => {
-    setQuery((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setQuery((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
+  const isSearchDisabled = !query.city || !query.minPrice || !query.maxPrice;
 
   return (
     <div className="searchBar">
       <div className="type">
-        {types.map((type) => (
+        {TYPES.map((type) => (
           <button
             key={type}
             onClick={() => switchType(type)}
@@ -33,12 +36,14 @@ function SearchBar() {
           </button>
         ))}
       </div>
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           name="city"
           placeholder="City"
+          value={query.city}
           onChange={handleChange}
+          aria-label="City"
         />
         <input
           type="number"
@@ -46,7 +51,9 @@ function SearchBar() {
           min={0}
           max={10000000}
           placeholder="Min Price"
+          value={query.minPrice}
           onChange={handleChange}
+          aria-label="Minimum Price"
         />
         <input
           type="number"
@@ -54,12 +61,16 @@ function SearchBar() {
           min={0}
           max={10000000}
           placeholder="Max Price"
+          value={query.maxPrice}
           onChange={handleChange}
+          aria-label="Maximum Price"
         />
         <Link
           to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
+          className={isSearchDisabled ? "disabled" : ""}
+          onClick={(e) => isSearchDisabled && e.preventDefault()}
         >
-          <button>
+          <button disabled={isSearchDisabled} aria-label="Search">
             <img src="/search.png" alt="" />
           </button>
         </Link>
