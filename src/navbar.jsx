@@ -11,23 +11,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar bg-white h-[100px] flex items-center justify-between shadow-sm pr-6">
+    <nav className="navbar bg-transparent text-white h-[100px] flex items-center justify-between shadow-sm pr-6">
       {/* Left Section */}
       <div className="left flex items-center gap-10 flex-3">
         <a href="/" className="logo flex items-center gap-3 font-bold text-lg">
           <img src="/logo.png" alt="Logo" className="w-6" />
           <span className="hidden md:inline">RealEstate</span>
         </a>
-        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+        <a href="/" className="hidden sm:inline  text-lg hover:scale-105 transition-transform">
           Home
         </a>
-        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+        <a href="/" className="hidden sm:inline  text-lg hover:scale-105 transition-transform">
           About
         </a>
-        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+        <a href="/" className="hidden sm:inline  text-lg hover:scale-105 transition-transform">
           Contact
         </a>
-        <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+        <a href="/" className="hidden sm:inline  text-lg hover:scale-105 transition-transform">
           Agents
         </a>
       </div>
@@ -48,10 +48,10 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <a href="/" className="hidden sm:inline text-black text-lg hover:scale-105 transition-transform">
+            <a href="/" className="hidden sm:inline  text-lg hover:scale-105 transition-transform">
               Sign in
             </a>
-            <a href="/" className="register bg-yellow-400 px-4 py-2 rounded-md text-black text-lg">
+            <a href="/" className="register bg-yellow-400 px-4 py-2 rounded-md  text-lg">
               Sign up
             </a>
           </>
